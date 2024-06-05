@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main{
+    max-height: calc(100vh - 80px);
+    height: calc(100vh - 80px);
+}
