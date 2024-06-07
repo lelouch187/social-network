@@ -4,7 +4,7 @@ import { ReactNode} from "react";
 
 
 export const PrivateRoute = ({ children}:{children: ReactNode}) => {
-    const isAuthenticated = true;
+    const isAuthenticated = false;
 
     if (isAuthenticated) {
         return children
