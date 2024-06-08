@@ -1,6 +1,7 @@
 import MyInput from "../ui/MyInput.tsx";
 import MyBtn from "../ui/MyBtn/MyBtn.tsx";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {useQueryClient} from "react-query";
 
 type Inputs = {
     email: string;
@@ -15,6 +16,9 @@ const LoginForm = () => {
         register,
         handleSubmit
     } = useForm<Inputs>()
+
+    //const queryClient = useQueryClient();
+
     const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
     return (
