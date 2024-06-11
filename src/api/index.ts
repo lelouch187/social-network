@@ -6,8 +6,7 @@ enum UrlPaths {
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
-    timeout: 1000,
-    headers: { 'API-KEY': import.meta.env.VITE_API_KEY}
+    headers: {'API-KEY': import.meta.env.VITE_API_KEY},
 });
 
 export interface ILoginData {
@@ -18,19 +17,19 @@ export interface ILoginData {
 }
 
 interface ILoginResponse {
-    resultCode:  number;
+    resultCode: number;
     messages: string[],
     data: {
         userId: number;
     }
 }
 
-export async function login(loginData:ILoginData) {
-     try{
-         const {data}:ILoginResponse =await instance.post(UrlPaths.LOGIN, loginData)
-         console.log(data)
-     }catch(error){
-         console.log(error)
-     }
+export async function login(loginData: ILoginData) {
+    try {
+        const {data}: ILoginResponse = await instance.post(UrlPaths.LOGIN, loginData, { withCredentials: true })
+        console.log(data)
+    } catch (error) {
+        console.log(error)
+    }
 
 }

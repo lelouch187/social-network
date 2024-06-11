@@ -3,13 +3,16 @@ import App from './App.tsx'
 import './index.scss'
 import {BrowserRouter} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from "react-query";
+import UserContext from "./context/userContext.tsx";
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-            <App/>
-        </QueryClientProvider>
+        <UserContext>
+            <QueryClientProvider client={queryClient}>
+                <App/>
+            </QueryClientProvider>
+        </UserContext>
     </BrowserRouter>
 )

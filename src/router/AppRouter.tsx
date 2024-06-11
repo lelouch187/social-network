@@ -3,8 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import {PrivateRoute} from "./PrivateRoute.tsx";
 
 const AppRouter = () => {
-
-
+    
     return (
         <Routes>
             {routesConfig.map(route => {
