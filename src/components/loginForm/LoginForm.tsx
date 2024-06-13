@@ -1,23 +1,21 @@
 import MyInput from "../ui/MyInput.tsx";
 import MyBtn from "../ui/MyBtn/MyBtn.tsx";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {useMutation} from "react-query";
-import {ILoginData, login} from "../../api";
 
-
+type Inputs = {
+    email: string;
+    password: string;
+    rememberMe?: boolean;
+    captcha: boolean;
+}
 
 
 const LoginForm = () => {
     const {
         register,
         handleSubmit
-    } = useForm<ILoginData>()
-
-    const mutation = useMutation(login);
-
-    const onSubmit: SubmitHandler<ILoginData> = (data) => {
-        mutation.mutate(data)
-    }
+    } = useForm<Inputs>()
+    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}
