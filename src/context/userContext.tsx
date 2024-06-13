@@ -1,37 +1,42 @@
-import React, {useState} from 'react';
+import { createContext, Dispatch, ReactNode, useReducer} from "react";
 
-export interface ContextProps {
-    id: number | null;
-    saveId: (id: number) => void;
-    deleteId: () => void;
+export const UserContext = createContext<number|null>(null);
+export const UserDispatchContext = createContext<Dispatch<UserAction>>(()=>{});
+
+interface UserProviderProps {
+    children: ReactNode;
 }
 
-const defaultValue: ContextProps = {
-    id: null,
-    saveId: () => {
-    },
-    deleteId: () => {
-    },
-}
-
-const MyContext: React.Context<ContextProps> = React.createContext(defaultValue);
-
-const UserContext = ({children}: { children: React.ReactNode }) => {
-    const [id, setId] = useState<number | null>(null);
-
-    const saveId = (id: number) => {
-        setId(id);
-    }
-
-    const deleteId = () => {
-        setId(null);
-    }
+export function UserProvider({ children }: UserProviderProps) {
+    const [userId, dispatch] = useReducer(userReducer, null);
 
     return (
-        <MyContext.Provider value={{id, saveId, deleteId}}>
-            {children}
-        </MyContext.Provider>
+        <UserContext.Provider value={userId}>
+            <UserDispatchContext.Provider value={dispatch}>
+                {children}
+            </UserDispatchContext.Provider>
+        </UserContext.Provider>
     );
-};
+}
 
-export default UserContext;
+export enum UserActionType {
+    LOGIN = "LOGIN",
+    LOGOUT = "LOGOUT"
+}
+
+type UserState = number|null;
+
+type UserAction =
+    | { type: UserActionType.LOGIN; id: number }
+    | { type: UserActionType.LOGOUT }
+
+function userReducer(state:UserState, action:UserAction) {
+    switch (action.type) {
+        case UserActionType.LOGIN:
+            state = action.id;
+            return state;
+        case UserActionType.LOGOUT:
+            state = null;
+            return state;
+    }
+}
